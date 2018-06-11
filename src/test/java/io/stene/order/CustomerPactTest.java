@@ -94,6 +94,7 @@ public class CustomerPactTest {
         Customer response = new CustomerClient(new CustomerConfig(mockServer.getUrl())).createCustomer(customer);
         assertEquals(response.getName(), customer.getName());
         assertEquals(response.getSsn(), customer.getSsn());
+        assertEquals(response.getAddress(), customer.getAddress());
         assertNotNull(response.getId());
     }
 }
