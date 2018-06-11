@@ -45,6 +45,7 @@ public class CustomerPactTest {
                         .body(new PactDslJsonBody()
                                 .stringValue("name", "Roger Antonsen") // Strict value
                                 .stringValue("ssn", ssn) // Strict value
+                                .stringType("address", "Wrong Blvd")
                                 .integerType("id", 0) // Value not important, but strict type
                         )
                 .toPact();
@@ -64,7 +65,7 @@ public class CustomerPactTest {
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", MediaType.APPLICATION_JSON_UTF8_VALUE);
 
-        Customer customer = Customer.builder().name("Henrik Stene").ssn("31129012345").build();
+        Customer customer = Customer.builder().name("Henrik Stene").ssn("31129012345").address("6850 Correct street").build();
 
         return
                 builder
@@ -79,6 +80,7 @@ public class CustomerPactTest {
                         .body(new PactDslJsonBody()
                                 .stringValue("name", customer.getName())
                                 .stringValue("ssn", customer.getSsn())
+                                .stringValue("address", customer.getAddress())
                                 .integerType("id", 0)
                         )
                 .toPact();
