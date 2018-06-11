@@ -28,38 +28,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 public class CustomerPactTest {
 
     @Pact(provider = "customer", consumer = "order")
-    public RequestResponsePact getCustomerPactTest(PactDslWithProvider builder) {
-        Map<String, String> headers = new HashMap<>();
-        headers.put("Content-Type", MediaType.APPLICATION_JSON_UTF8_VALUE);
-
-        String ssn = "71039012345";
-        return
-                builder
-                        .given(String.format("Customer with ssn(%s) exists.", ssn))
-                        .uponReceiving("Get customer request")
-                        .path(String.format("/customer/%s", ssn))
-                        .method(HttpMethod.GET.name())
-                .willRespondWith()
-                        .status(HttpStatus.OK.value())
-                        .headers(headers)
-                        .body(new PactDslJsonBody()
-                                .stringValue("name", "Roger Antonsen") // Strict value
-                                .stringValue("ssn", ssn) // Strict value
-                                .integerType("id", 0) // Value not important, but strict type
-                        )
-                .toPact();
-    }
-
-    @Test
-    @PactTestFor(pactMethod = "getCustomerPactTest")
-    void testGetCustomer(MockServer mockServer) {
-        Customer customer = new CustomerClient(new CustomerConfig(mockServer.getUrl())).getCustomer("71039012345");
-        assertEquals(customer.getSsn(), "71039012345");
-        assertEquals(customer.getName(), "Roger Antonsen");
-        assertNotNull(customer.getId());
-    }
-
-    @Pact(provider = "customer", consumer = "order")
     public RequestResponsePact createCustomer(PactDslWithProvider builder) throws JsonProcessingException {
         Map<String, String> headers = new HashMap<>();
         headers.put("Content-Type", MediaType.APPLICATION_JSON_UTF8_VALUE);
