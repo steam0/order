@@ -81,7 +81,7 @@ public class CustomerPactTest {
                         .body(new PactDslJsonBody()
                                 .stringValue("name", customer.getName())
                                 .stringValue("ssn", customer.getSsn())
-                                .stringValue("address", customer.getAddress())
+                                .stringType("address", customer.getAddress())
                                 .integerType("id", 0)
                         )
                 .toPact();
