@@ -57,6 +57,7 @@ public class CustomerPactTest {
         Customer customer = new CustomerClient(new CustomerConfig(mockServer.getUrl())).getCustomer("71039012345");
         assertEquals(customer.getSsn(), "71039012345");
         assertEquals(customer.getName(), "Roger Antonsen");
+        assertNotNull(customer.getAddress());
         assertNotNull(customer.getId());
     }
 
@@ -89,7 +90,7 @@ public class CustomerPactTest {
     @Test
     @PactTestFor(pactMethod = "createCustomer")
     void testCreateCustomer(MockServer mockServer) {
-        Customer customer = Customer.builder().name("Henrik Stene").ssn("31129012345").build();
+        Customer customer = Customer.builder().name("Henrik Stene").ssn("31129012345").address("6850 Correct street").build();
         Customer response = new CustomerClient(new CustomerConfig(mockServer.getUrl())).createCustomer(customer);
         assertEquals(response.getName(), customer.getName());
         assertEquals(response.getSsn(), customer.getSsn());
