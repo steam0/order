@@ -47,7 +47,7 @@ public class CustomerPactTest {
                         .body(new PactDslJsonBody()
                                 .stringValue("name", customer.getName())
                                 .stringValue("ssn", customer.getSsn())
-                                .stringValue("address", customer.getAddress())
+                                .stringType("address", customer.getAddress())
                                 .integerType("id", 0)
                         )
                 .toPact();
@@ -56,7 +56,7 @@ public class CustomerPactTest {
     @Test
     @PactTestFor(pactMethod = "createCustomer")
     void testCreateCustomer(MockServer mockServer) {
-        Customer customer = Customer.builder().name("Henrik Stene").ssn("31129012345").build();
+        Customer customer = Customer.builder().name("Henrik Stene").ssn("31129012345").address("6850 Correct street").build();
         Customer response = new CustomerClient(new CustomerConfig(mockServer.getUrl())).createCustomer(customer);
         assertEquals(response.getName(), customer.getName());
         assertEquals(response.getSsn(), customer.getSsn());
