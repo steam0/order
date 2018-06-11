@@ -22,11 +22,12 @@ public class CustomerIntegrationTest {
 
 	@Test
 	public void createCustomer() {
-		Customer customer = Customer.builder().name("Harald Hårfagre").ssn("71039012345").build();
+		Customer customer = Customer.builder().name("Harald Hårfagre").ssn("71039012345").address("6850 Correct street").build();
 		Customer response = customerClient.createCustomer(customer);
 
 		assertEquals(response.getName(), customer.getName());
 		assertEquals(response.getSsn(), customer.getSsn());
+		assertEquals(response.getAddress(), customer.getAddress());
 		assertNotNull(response.getId());
 	}
 

@@ -19,7 +19,7 @@ public class CustomerClient {
         RestTemplate restTemplate = new RestTemplate();
         String url = customerConfig.getUrl()+"/customer/"+ssn;
         Customer response = restTemplate.getForObject(url, Customer.class);
-        log.info("Got Customer(id={}, name={}, ssn={})", response.getId(), response.getName(), response.getSsn());
+        log.info("Got Customer(id={}, name={}, ssn={} address={})", response.getId(), response.getName(), response.getSsn(), response.getAddress());
         return response;
     }
 
@@ -27,7 +27,7 @@ public class CustomerClient {
         RestTemplate restTemplate = new RestTemplate();
         String url = customerConfig.getUrl()+"/customer";
         Customer response = restTemplate.postForObject(url, customer, Customer.class);
-        log.info("Got Customer(id={}, name={}, ssn={})", response.getId(), response.getName(), response.getSsn());
+        log.info("Got Customer(id={}, name={}, ssn={} address={})", response.getId(), response.getName(), response.getSsn(), response.getAddress());
         return response;
     }
 }
